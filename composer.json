@@ -1,0 +1,38 @@
+{
+  "name": "nilportugues/messagebus",
+  "description": "MessageBus library. Contains CommandBus, QueryBus and EventBus and multiple middleware implementations.",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Nil Portugués Calderó",
+      "email": "contact@nilportugues.com"
+    }
+  ],
+  "require": {
+    "php": ">=7",
+    "container-interop/container-interop": "1.1.*",
+    "nilportugues/assert": "1.0.*",
+    "nilportugues/serializer": "1.1.*",
+    "psr/log": "1.0.*",
+    "psr/cache": "1.0.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.2.*",
+    "fabpot/php-cs-fixer": "~1.9"
+  },
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "NilPortugues\\MessageBus\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "NilPortugues\\Tests\\MessageBus\\": "tests/"
+    }
+  },
+  "scripts": {
+    "tests": "php vendor/bin/phpunit",
+    "fixer": "php vendor/bin/php-cs-fixer fix src && php vendor/bin/php-cs-fixer fix tests"
+  }
+}
