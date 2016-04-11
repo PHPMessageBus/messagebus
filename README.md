@@ -10,7 +10,9 @@ Use [Composer](https://getcomposer.org) to install the package:
 $ composer require nilportugues/messagebus
 ```
 
-## What?
+## Introduction
+
+### What?
 
 The idea of a message bus is that you create message objects that represent what you want your application to do. Then, you toss it into the bus and the bus makes sure that the message object gets to where it needs to go. 
 
@@ -40,6 +42,7 @@ Given the nature of the message, implementing an interface, you may write behavi
 - Encourages separation of concerns.
 - Encourages single responsibility design.
 
+---
 
 ## 1. CommandBus
 
