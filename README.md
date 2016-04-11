@@ -32,6 +32,15 @@ Given the nature of the message, implementing an interface, you may write behavi
 - Encourages separation of concerns.
 - Encourages single responsibility design.
 
+## Installation
+
+Use [Composer](https://getcomposer.org) to install the package:
+
+```
+$ composer require nilportugues/messagebus
+```
+
+
 ## 1. CommandBus
 
 ### 1.1 - Usage
