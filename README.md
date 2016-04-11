@@ -652,8 +652,8 @@ In the EventBus use this if your Consumer is written in PHP but you're not consu
 
 Contributions to the package are always welcome!
 
-* Report any bugs or issues you find on the [issue tracker](https://github.com/nilportugues/message-bus/issues/new).
-* You can grab the source code at the package's [Git repository](https://github.com/nilportugues/message-bus).
+* Report any bugs or issues you find on the [issue tracker](https://github.com/PHPMessageBus/message-bus/issues/new).
+* You can grab the source code at the package's [Git repository](https://github.com/PHPMessageBus/message-bus).
 
 
 ## Support
@@ -661,13 +661,13 @@ Contributions to the package are always welcome!
 Get in touch with me using one of the following means:
 
  - Emailing me at <contact@nilportugues.com>
- - Opening an [Issue](https://github.com/nilportugues/message-bus/issues/new)
+ - Opening an [Issue](https://github.com/PHPMessageBus/message-bus/issues/new)
 
 
 ## Authors
 
 * [Nil Portugués Calderó](http://nilportugues.com)
-* [The Community Contributors](https://github.com/nilportugues/message-bus/graphs/contributors)
+* [The Community Contributors](https://github.com/PHPMessageBus/message-bus/graphs/contributors)
 
 
 ## License
