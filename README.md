@@ -12,8 +12,6 @@ $ composer require nilportugues/messagebus
 
 ## Introduction
 
-### What?
-
 The idea of a message bus is that you create message objects that represent what you want your application to do. Then, you toss it into the bus and the bus makes sure that the message object gets to where it needs to go. 
 
 Easy right? Keep reading!
