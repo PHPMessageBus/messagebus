@@ -604,7 +604,7 @@ To do so, you'll have to require an additional package: **EventBus Queue**. This
 composer require nilportugues/eventbus-queue
 ```
 
-[Documentation can be found in its repository](https://github.com/PHPMessageBus/message-bus).
+[Documentation can be found in its repository](https://github.com/PHPMessageBus/event-bus-queue).
 
 
 
