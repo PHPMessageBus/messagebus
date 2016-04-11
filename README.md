@@ -647,3 +647,28 @@ In the EventBus use this if your Consumer is written in PHP but you're not consu
 - **Pros:** JSON can be reused to consume this data in the future as its supported everywhere.
 - **Cons:** You'll have to write your consumer to read the JSON structure.
 
+
+## Contribute
+
+Contributions to the package are always welcome!
+
+* Report any bugs or issues you find on the [issue tracker](https://github.com/nilportugues/message-bus/issues/new).
+* You can grab the source code at the package's [Git repository](https://github.com/nilportugues/message-bus).
+
+
+## Support
+
+Get in touch with me using one of the following means:
+
+ - Emailing me at <contact@nilportugues.com>
+ - Opening an [Issue](https://github.com/nilportugues/message-bus/issues/new)
+
+
+## Authors
+
+* [Nil Portugués Calderó](http://nilportugues.com)
+* [The Community Contributors](https://github.com/nilportugues/message-bus/graphs/contributors)
+
+
+## License
+The code base is licensed under the [MIT license](LICENSE).
