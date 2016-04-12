@@ -2,6 +2,8 @@
   "name": "nilportugues/messagebus",
   "description": "MessageBus library. Contains CommandBus, QueryBus and EventBus and multiple middleware implementations.",
   "type": "library",
+  "homepage": "http://nilportugues.com",
+  "license": "MIT",  
   "authors": [
     {
       "name": "Nil Portugués Calderó",
