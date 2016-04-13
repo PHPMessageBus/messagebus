@@ -7,7 +7,6 @@ Implementation for the CommandBus, the QueryBus and the EventBus in PHP 7.
 
 ---
 
- - [Message Bus](#message-bus)
  - [Installation](#installation)
  - [Introduction](#introduction)
  - [What is a Message Bus?](#what-is-a-message-bus)
