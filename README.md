@@ -46,7 +46,7 @@ Implementation for the CommandBus, the QueryBus and the EventBus in PHP 7.
     - [3.2 - Predefined Middlewares](#32---predefined-middlewares)
     - [3.3 - Custom Middlewares](#33---custom-middlewares)
  - [4 - Serializers](#4---serializers)
-     - [4.1 - NilPortugues\MessageBus\Serializer\NativeSerializer](#41---nilportuguesmessagebusserializernativeserializer)
+    - [4.1 - NilPortugues\MessageBus\Serializer\NativeSerializer](#41---nilportuguesmessagebusserializernativeserializer)
     - [4.2 - NilPortugues\MessageBus\Serializer\JsonSerializer](#42---nilportuguesmessagebusserializerjsonserializer)
     - [4.3 - NilPortugues\MessageBus\Serializer\JsonObjectSerializer](#43---nilportuguesmessagebusserializerjsonobjectserializer)
  - [Contribute](#contribute)
