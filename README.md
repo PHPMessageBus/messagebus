@@ -654,11 +654,11 @@ final class SendWelcomeEmailHandler implements EventHandler, EventHandlerPriorit
 
 #### 3.1.4 - Register the EventHandler
 #### 3.1.5 - Setting up the EventBusMiddleware
-#### 3.1.5 - Registering the remaining EventBus classes
-#### 3.1.6 - Running the EventBus
+#### 3.1.6 - Registering the remaining EventBus classes
+#### 3.1.7 - Running the EventBus
 
 
-#### 3.1.7 - (Optional) Running the EventBus as a Queue
+#### 3.1.8 - (Optional) Running the EventBus as a Queue
 
 To do so, you'll have to require an additional package: **EventBus Queue**. This extension can be downloaded using composer:
 
