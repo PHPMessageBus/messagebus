@@ -277,6 +277,8 @@ $commandBus($command);
 
 ###  1.3 - Custom Middlewares
 
+In order to write custom middleware a new class implementing the `NilPortugues\MessageBus\CommandBus\Contracts\CommandBusMiddleware` interface is required.
+
 ----
 
 ## 2. QueryBus
@@ -468,16 +470,18 @@ $userQueryResponse = $queryBus($query);
 
 **CacheQueryBusMiddleware**
 
-- Class: `NilPortugues\MessageBus\QueryBus\CacheQueryBusMiddleware`
+- **Class**: `NilPortugues\MessageBus\QueryBus\CacheQueryBusMiddleware`
 - Class construct method expects a Serializer (see below), a PSR6 Caching implementation and queue name.
 
 **LoggerQueryBusMiddleware**
 
-- Class: `NilPortugues\MessageBus\QueryBus\LoggerQueryBusMiddleware`
+- **Class**: `NilPortugues\MessageBus\QueryBus\LoggerQueryBusMiddleware`
 - Class construct method expects a PSR3 Logger implementation.
 
 
 ###  2.3 - Custom Middlewares
+
+In order to write custom middleware a new class implementing the `NilPortugues\MessageBus\QueryBus\Contracts\QueryBusMiddleware` interface is required.
 
 ----
 
@@ -652,12 +656,124 @@ final class SendWelcomeEmailHandler implements EventHandler, EventHandlerPriorit
 ```
 
 #### 3.1.4 - Register the EventHandler
+
+I'm assuming you're using some kind Service Container. Now it's time to register your Event Handlers.
+
+For instance, in a `Interop\Container` compliant Service Container, we can do this as follows:
+
+```php
+<?php
+//...your other registered classes
+
+$container['UserFriendRepository'] = function() use ($container) {    
+     return []; //your repository
+};
+
+$container['UserCreditsRepository'] = function() use ($container) {    
+     return []; //your repository
+};
+
+$container['EmailProvider'] = function() use ($container) {    
+     return []; //your email provider
+};
+
+$container['SetupUserAccountHandler'] = function() use ($container) {    
+    return new SetupUserAccountHandler(
+        $container['UserFriendRepository'],
+        $container['UserCreditsRepository']
+    );
+};
+$container['SendWelcomeEmailHandler'] = function() use ($container) {
+    return new SendWelcomeEmailHandler($container['EmailProvider']);
+};
+```
+
+
 #### 3.1.5 - Setting up the EventBusMiddleware
+
+The Event Bus Middleware requires two classes to be injected. First one is the Event translator, and second one the handler resolver.
+
+**EventTranslator**
+
+Classes implementing this interface will provide the FQN for the Handler class given a Event. 
+
+This package provides an implementation, `NilPortugues\MessageBus\EventBus\Translator\AppendStrategy` which basically appends the word `Handler` to the provided `Event` class.
+
+For custom strategies, you may write your own implementing the `NilPortugues\MessageBus\EventBus\Contracts\EventTranslator` interface.
+
+**EventHandlerResolver**
+
+Classes implementing this interface will be resolving the class for the instance required based on the output of the EventTranslator used. 
+
+This package provides an implementation, `NilPortugues\MessageBus\EventBus\Resolver\InteropContainerResolver`, that expects any Service Container implementing the `Interop\Container` interface.
+
+For custom strategies, such as Symfony Container, you may write your own implementing the `NilPortugues\MessageBus\EventBus\Contracts\EventHandlerResolver` interface.
+
 #### 3.1.6 - Registering the remaining EventBus classes
+
+
+The minimum set up to get the Event Bus working is:
+
+```php
+<?php
+//...your other registered classes
+
+$container['EventTranslator'] = function() use ($container) {
+    return new \NilPortugues\MessageBus\EventBus\Translator\AppendStrategy('Handler');
+};
+
+$container['EventHandlerResolver'] = function() use ($container) {
+    return new \NilPortugues\MessageBus\EventBus\Resolver\InteropContainerResolver($container);
+};
+
+$container['EventBusMiddleware'] = function() use ($container) {
+    return new \NilPortugues\MessageBus\EventBus\EventBusMiddleware(
+        $container['EventTranslator'],
+        $container['EventHandlerResolver'],
+    );
+};
+
+$container['EventBus'] = function() use ($container) {
+    return new \NilPortugues\MessageBus\EventBus\EventBus([  
+        $container['EventBusMiddleware'],
+    ]);
+};
+``` 
+
+If for instance, we want to log everything happening in the Event Bus, we'll add to the middleware list the logger middleware. This will wrap the Event Bus, being able to log before and after it ran, and if there was an error.
+
+```php
+<?php
+//...your other registered classes
+
+$container['LoggerEventBusMiddleware'] = function() use ($container) {
+    return new \NilPortugues\MessageBus\EventBus\LoggerEventBusMiddleware(
+        $container['Monolog']
+    );
+};
+
+//Update the EventBus with the LoggerEventBusMiddleware
+$container['EventBus'] = function() use ($container) {
+    return new \NilPortugues\MessageBus\EventBus\EventBus([
+        $container['LoggerEventBusMiddleware'],
+        $container['EventBusMiddleware'],
+    ]);
+};
+``` 
+
 #### 3.1.7 - Running the EventBus
 
+Finally, to make use of the EventBus, all you need to do is run this code: 
+```php
+<?php
+$eventBus = $container->get('EventBus');
+$Event = new GetUser(1):
+$userEventResponse = $eventBus($Event);
+```
 
 #### 3.1.8 - (Optional) Running the EventBus as a Queue
+
+**Save your users time and load your pages faster! Go asynchronous using a queue.**
 
 To do so, you'll have to require an additional package: **EventBus Queue**. This extension can be downloaded using composer:
 
@@ -665,13 +781,30 @@ To do so, you'll have to require an additional package: **EventBus Queue**. This
 composer require nilportugues/eventbus-queue
 ```
 
-[Documentation can be found in its repository](https://github.com/PHPMessageBus/event-bus-queue).
-
-
+[Documentation and installation guide can be found in its repository](https://github.com/PHPMessageBus/event-bus-queue).
 
 ### 3.2 - Predefined Middlewares
 
+**TransactionalEventBusMiddleware**
+
+- **Class**: `NilPortugues\MessageBus\EventBus\TransactionalEventBusMiddleware`
+- Class construct method expects a PDO connection. It will wrap all the underlying middleware calls with beginTransaction-commit and rollback if any kind of exception is thrown.
+
+**LoggerEventBusMiddleware**
+
+- **Class**: `NilPortugues\MessageBus\EventBus\LoggerEventBusMiddleware`
+- Class construct method expects a PSR3 Logger implementation.
+
+**ProducerEventBusMiddleware**
+
+- **Class**: `NilPortugues\MessageBus\EventBusQueue\ProducerEventBusMiddleware`
+- Adds events to an Event Queue. Required running `composer require nilportugues/eventbus-queue` first.
+
+
 ### 3.3 - Custom Middlewares
+
+In order to write custom middleware a new class implementing the `NilPortugues\MessageBus\EventBus\Contracts\EventBusMiddleware` interface is required.
+
 
 ---
 
