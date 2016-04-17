@@ -521,7 +521,7 @@ final class UserRegistered implements Event
 }
 ```
 
-#### 3.1.1 - Create an EventHandler
+#### 3.1.2 - Create an EventHandler
 
 To illustrate the power of eventing, we'll map the previous event `UserRegistered` to two EventHandlers.
 
@@ -605,7 +605,7 @@ final class SetupUserAccountHandler implements EventHandler
 ```
 
 
-#### 3.1.2 - (Optional) Set the EventHandler's Priority
+#### 3.1.3 - (Optional) Set the EventHandler's Priority
 
 Sometimes you want or must make sure an action precedes another one.
  
