@@ -695,11 +695,9 @@ The Event Bus Middleware requires two classes to be injected. First one is the E
 
 **EventTranslator**
 
-Classes implementing this interface will provide the FQN for the Handler class given a Event. 
+Takes care of registering the EventHandlers subscribed to an Event.
 
-This package provides an implementation, `NilPortugues\MessageBus\EventBus\Translator\AppendStrategy` which basically appends the word `Handler` to the provided `Event` class.
-
-For custom strategies, you may write your own implementing the `NilPortugues\MessageBus\EventBus\Contracts\EventTranslator` interface.
+Its implementation can be found at: `NilPortugues\MessageBus\EventBus\Translator\EventFullyQualifiedClassNameStrategy`.
 
 **EventHandlerResolver**
 
@@ -719,7 +717,12 @@ The minimum set up to get the Event Bus working is:
 //...your other registered classes
 
 $container['EventTranslator'] = function() use ($container) {
-    return new \NilPortugues\MessageBus\EventBus\Translator\AppendStrategy('Handler');
+    $handlers = [
+       SendWelcomeEmailHandler::class,
+       SetupUserAccountHandler::class,
+    ];
+
+    return new \NilPortugues\MessageBus\EventBus\Translator\EventFullyQualifiedClassNameStrategy($handlers);
 };
 
 $container['EventHandlerResolver'] = function() use ($container) {
