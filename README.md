@@ -1,7 +1,7 @@
 # Message Bus
 
 [![Build Status](https://travis-ci.org/PHPMessageBus/messagebus.svg?branch=master)](https://travis-ci.org/PHPMessageBus/messagebus) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PHPMessageBus/messagebus/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPMessageBus/messagebus/?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/04e1a12f-e916-4ae6-875f-5e694fb71b6a/mini.png?)](https://insight.sensiolabs.com/projects/04e1a12f-e916-4ae6-875f-5e694fb71b6a) [![Latest Stable Version](https://poser.pugx.org/nilportugues/messagebus/v/stable?)](https://packagist.org/packages/nilportugues/messagebus) [![Total Downloads](https://poser.pugx.org/nilportugues/messagebus/downloads?)](https://packagist.org/packages/nilportugues/messagebus) [![License](https://poser.pugx.org/nilportugues/messagebus/license?)](https://packagist.org/packages/nilportugues/messagebus)
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://paypal.me/nilportugues)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.me/nilportugues)
 
 Implementation for the CommandBus, the QueryBus and the EventBus in PHP 7.
 
@@ -784,7 +784,7 @@ To do so, you'll have to require an additional package: **EventBus Queue**. This
 composer require nilportugues/eventbus-queue
 ```
 
-[Documentation and installation guide can be found in its repository](https://github.com/PHPMessageBus/event-bus-queue).
+[Documentation and installation guide can be found in its repository](https://github.com/PHPMessageBus/eventbus-queue).
 
 ### 3.2 - Predefined Middlewares
 
@@ -849,7 +849,7 @@ In the EventBus use this if your Consumer is written in PHP but you're not consu
 
 Contributions to the package are always welcome!
 
-* Report any bugs or issues you find on the [issue tracker](https://github.com/PHPMessageBus/message-bus/issues/new).
+* Report any bugs or issues you find on the [issue tracker](https://github.com/PHPMessageBus/messagebus/issues/new).
 * You can grab the source code at the package's [Git repository](https://github.com/PHPMessageBus/message-bus).
 
 
@@ -863,7 +863,7 @@ Get in touch with me using one of the following means:
 
 ## Authors
 
-* [Nil Portugués Calderó](http://nilportugues.com)
+* [Nil Portugués Calderó](https://nilportugues.com/)
 * [The Community Contributors](https://github.com/PHPMessageBus/message-bus/graphs/contributors)
 
 
