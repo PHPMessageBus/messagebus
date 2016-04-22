@@ -34,20 +34,22 @@ class QueryBus implements QueryBusMiddlewareInterface
      */
     public function __invoke(Query $query, callable $next = null) : QueryResponse
     {
-        $response = EmptyResponse::create();
         $middleware = $this->middleware;
         $current = array_shift($middleware);
 
-        foreach ($middleware as $queryBusMiddleware) {
-            $callable = function ($query) use ($queryBusMiddleware) {
-                return $queryBusMiddleware->__invoke($query);
-            };
+        if (!empty($middleware)) {
+            foreach ($middleware as $queryBusMiddleware) {
+                $callable = function ($query) use ($queryBusMiddleware) {
+                    return $queryBusMiddleware->__invoke($query);
+                };
 
-            $response = $current->__invoke($query, $callable);
-            $current = $queryBusMiddleware;
+                $response = $current->__invoke($query, $callable);
+                $current = $queryBusMiddleware;
+            }
+        } elseif ($current) {
+            $response = $current->__invoke($query);
         }
-        unset($middleware);
 
-        return $response;
+        return (!empty($response)) ? $response : EmptyResponse::create();
     }
 }

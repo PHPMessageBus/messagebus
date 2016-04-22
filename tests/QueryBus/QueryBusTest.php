@@ -4,8 +4,8 @@ namespace NilPortugues\Tests\MessageBus\QueryBus;
 
 use NilPortugues\MessageBus\QueryBus\CacheQueryBusMiddleware;
 use NilPortugues\MessageBus\QueryBus\Contracts\QueryHandlerResolver;
-use NilPortugues\MessageBus\QueryBus\Contracts\QueryResponse;
 use NilPortugues\MessageBus\QueryBus\Contracts\QueryTranslator;
+use NilPortugues\MessageBus\QueryBus\EmptyResponse;
 use NilPortugues\MessageBus\QueryBus\LoggerQueryBusMiddleware;
 use NilPortugues\MessageBus\QueryBus\QueryBus;
 use NilPortugues\MessageBus\QueryBus\QueryBusMiddleware;
@@ -51,6 +51,20 @@ class QueryBusTest extends \PHPUnit_Framework_TestCase
         $queryBus = new QueryBus($middleware);
         $response = $queryBus->__invoke(new DummyQuery());
         $this->assertNotEmpty($logger->logs());
-        $this->assertInstanceOf(QueryResponse::class, $response);
+        $this->assertInstanceOf(DummyQueryResponse::class, $response);
+    }
+
+    public function testItWillReturnEmptyResponse()
+    {
+        $queryBus = new QueryBus([]);
+        $response = $queryBus->__invoke(new DummyQuery());
+        $this->assertInstanceOf(EmptyResponse::class, $response);
+    }
+
+    public function testItWillReturnDummyQueryResponse()
+    {
+        $queryBus = new QueryBus([new QueryBusMiddleware($this->translator, $this->resolver)]);
+        $response = $queryBus->__invoke(new DummyQuery());
+        $this->assertInstanceOf(DummyQueryResponse::class, $response);
     }
 }
