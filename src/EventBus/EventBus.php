@@ -37,6 +37,11 @@ class EventBus implements EventBusMiddlewareInterface
         $middleware = $this->middleware;
         $current = array_shift($middleware);
 
+        if (empty($middleware)) {
+            $current->__invoke($event);
+            return;
+        }
+        
         foreach ($middleware as $eventBusMiddleware) {
             $callable = function ($event) use ($eventBusMiddleware) {
                 return $eventBusMiddleware($event);

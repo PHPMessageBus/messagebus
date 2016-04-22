@@ -34,6 +34,11 @@ class CommandBus implements CommandBusMiddlewareInterface
         $middleware = $this->middleware;
         $current = array_shift($middleware);
 
+        if (empty($middleware)) {
+            $current->__invoke($command);
+            return;
+        }
+
         foreach ($middleware as $commandBusMiddleware) {
             $callable = function ($command) use ($commandBusMiddleware) {
                 return $commandBusMiddleware($command);
