@@ -34,7 +34,7 @@ class CommandBus implements CommandBusMiddlewareInterface
         $middleware = $this->middleware;
         $current = array_shift($middleware);
 
-        if (empty($middleware)) {
+        if (empty($middleware) && !empty($current)) {
             $current->__invoke($command);
             return;
         }
@@ -47,6 +47,5 @@ class CommandBus implements CommandBusMiddlewareInterface
             $current->__invoke($command, $callable);
             $current = $commandBusMiddleware;
         }
-        unset($middleware);
     }
 }

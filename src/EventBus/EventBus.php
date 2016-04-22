@@ -37,11 +37,11 @@ class EventBus implements EventBusMiddlewareInterface
         $middleware = $this->middleware;
         $current = array_shift($middleware);
 
-        if (empty($middleware)) {
+        if (empty($middleware) && !empty($current)) {
             $current->__invoke($event);
             return;
         }
-        
+
         foreach ($middleware as $eventBusMiddleware) {
             $callable = function ($event) use ($eventBusMiddleware) {
                 return $eventBusMiddleware($event);
@@ -50,6 +50,5 @@ class EventBus implements EventBusMiddlewareInterface
             $current->__invoke($event, $callable);
             $current = $eventBusMiddleware;
         }
-        unset($middleware);
     }
 }
