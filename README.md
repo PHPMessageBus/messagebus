@@ -140,10 +140,8 @@ final class RegisterUserHandler implements CommandHandler
         $this->userRepository = $userRepository;
     }
         
-    public function __invoke(Command $command)
-    {
-        $this->guard($command);
-        
+    public function __invoke(RegisterUser $command)
+    {        
         $user = new User(
             $command->getUsername(),
             $command->getPassword(),
@@ -151,14 +149,7 @@ final class RegisterUserHandler implements CommandHandler
         );
         
         $this->userRepository->save($user);        
-    }
-    
-    private function guard(Command $command)
-    {
-        if (false === ($command instanceof RegisterUser)) {
-            throw new \InvalidArgumentException("Expected command of type: ".RegisterUser::class);
-        }
-    }
+    }    
 }
 ```
 
@@ -328,20 +319,12 @@ final class GetUserHandler implements QueryHandler
         $this->userRepository = $userRepository;
     }
         
-    public function __invoke(Query $query) : QueryResponse
-    {
-        $this->guard($query);        
+    public function __invoke(GetUser $query) : QueryResponse
+    {  
         $userId = $query->getUserId();        
         $user = $this->userRepository->find($userId);       
          
         return new UserQueryResponse($user);
-    }
-    
-    private function guard(Query $query)
-    {
-        if (false === ($query instanceof GetUser)) {
-            throw new \InvalidArgumentException("Expected query of type: ".GetUser::class);
-        }
     }
 }
 ```
@@ -543,19 +526,12 @@ final class SendWelcomeEmailHandler implements EventHandler
         $this->emailProvider = $emailProvider;
     }
         
-    public function __invoke(Event $event)
+    public function __invoke(UserRegistered $event)
     {
         $this->guard($event);        
         $this->emailProvider->send('welcome_email', $event->getEmail());        
     }
-    
-    private function guard(Event $event)
-    {
-        if (false === ($event instanceof UserRegistered)) {
-            throw new \InvalidArgumentException("Expected event of type: ".UserRegistered::class);
-        }
-    }
-        
+     
     public static function subscribedTo() : string
     {
         return UserRegistered::class;
@@ -583,19 +559,11 @@ final class SetupUserAccountHandler implements EventHandler
         $this->userCreditsRepository = $userCreditsRepository;
     }
         
-    public function __invoke(Event $event)
-    {
-        $this->guard($event);        
+    public function __invoke(UserRegistered $event)
+    {      
         $this->userFriendsRepository->add(new UserFriendsCollection($event->getUserId(), []));        
         $this->userCreditsRepository->add(new UserCredits($event->getUserId(), new Credits(0));        
-    }
-    
-    private function guard(Event $event)
-    {
-        if (false === ($event instanceof UserRegistered)) {
-            throw new \InvalidArgumentException("Expected event of type: ".UserRegistered::class);
-        }
-    }
+    }   
         
     public static function subscribedTo() : string
     {

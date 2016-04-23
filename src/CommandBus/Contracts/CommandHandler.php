@@ -17,5 +17,5 @@ interface CommandHandler
     /**
      * @param Command $command
      */
-    public function __invoke(Command $command);
+    public function __invoke($command);
 }

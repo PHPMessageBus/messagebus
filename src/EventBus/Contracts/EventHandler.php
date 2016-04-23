@@ -20,9 +20,4 @@ interface EventHandler
      * @return string
      */
     public static function subscribedTo() : string;
-
-    /**
-     * @param Event $event
-     */
-    public function __invoke(Event $event);
 }

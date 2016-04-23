@@ -16,4 +16,7 @@ use NilPortugues\MessageBus\QueryBus\Contracts\Query;
  */
 class DummyQuery implements Query
 {
+    public function __invoke()
+    {
+    }
 }

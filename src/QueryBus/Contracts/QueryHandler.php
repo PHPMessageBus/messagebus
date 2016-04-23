@@ -14,10 +14,4 @@ namespace NilPortugues\MessageBus\QueryBus\Contracts;
  */
 interface QueryHandler
 {
-    /**
-     * @param Query $query
-     *
-     * @return QueryResponse
-     */
-    public function __invoke(Query $query) : QueryResponse;
 }

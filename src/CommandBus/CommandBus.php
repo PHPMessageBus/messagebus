@@ -36,6 +36,7 @@ class CommandBus implements CommandBusMiddlewareInterface
 
         if (empty($middleware) && !empty($current)) {
             $current->__invoke($command);
+
             return;
         }
 

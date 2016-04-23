@@ -23,7 +23,7 @@ class DummyQueryHandler implements QueryHandler
      *
      * @return QueryResponse
      */
-    public function __invoke(Query $query) : QueryResponse
+    public function __invoke($query) : QueryResponse
     {
         return new DummyQueryResponse();
     }

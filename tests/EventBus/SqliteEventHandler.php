@@ -16,11 +16,4 @@ class SqliteEventHandler implements EventHandler
     {
         return SqliteEvent::class;
     }
-
-    /**
-     * @param Event $event
-     */
-    public function __invoke(Event $event)
-    {
-    }
 }

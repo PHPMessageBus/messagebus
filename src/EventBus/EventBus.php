@@ -39,6 +39,7 @@ class EventBus implements EventBusMiddlewareInterface
 
         if (empty($middleware) && !empty($current)) {
             $current->__invoke($event);
+
             return;
         }
 

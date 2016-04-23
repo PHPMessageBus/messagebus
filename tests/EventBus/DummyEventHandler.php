@@ -11,7 +11,7 @@ class DummyEventHandler implements EventHandler, EventHandlerPriority
     /**
      * @param Event $event
      */
-    public function __invoke(Event $event)
+    public function __invoke($event)
     {
     }
 
