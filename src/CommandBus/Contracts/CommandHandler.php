@@ -14,8 +14,5 @@ namespace NilPortugues\MessageBus\CommandBus\Contracts;
  */
 interface CommandHandler
 {
-    /**
-     * @param Command $command
-     */
-    public function __invoke($command);
+
 }
