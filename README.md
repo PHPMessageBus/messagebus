@@ -163,8 +163,8 @@ For instance, in a `Interop\Container` compliant Service Container, we can do th
 <?php
 //...your other registered classes
 
-$container['RegisterUserHandler'] = function() use ($container) {
-    return new RegisterUserHandler($container['UserRepository']);
+$container['RegisterUserHandler'] = function($container) {
+    return new RegisterUserHandler($container->get('UserRepository');
 };
 ```
 
@@ -198,24 +198,24 @@ The minimum set up to get the Command Bus working is:
 <?php
 //...your other registered classes
 
-$container['CommandTranslator'] = function() use ($container) {
+$container['CommandTranslator'] = function($container) {
     return new \NilPortugues\MessageBus\CommandBus\Translator\AppendStrategy('Handler');
 };
 
-$container['CommandHandlerResolver'] = function() use ($container) {
+$container['CommandHandlerResolver'] = function($container) {
     return new \NilPortugues\MessageBus\CommandBus\Resolver\InteropContainerResolver($container);
 };
 
-$container['CommandBusMiddleware'] = function() use ($container) {
+$container['CommandBusMiddleware'] = function($container) {
     return new \NilPortugues\MessageBus\CommandBus\CommandBusMiddleware(
-        $container['CommandTranslator'],
-        $container['CommandHandlerResolver'],
+        $container->get('CommandTranslator'),
+        $container->get('CommandHandlerResolver'),
     );
 };
 
-$container['CommandBus'] = function() use ($container) {
+$container['CommandBus'] = function($container) {
     return new \NilPortugues\MessageBus\CommandBus\CommandBus([  
-        $container['CommandBusMiddleware'],
+        $container->get('CommandBusMiddleware'),
     ]);
 };
 ``` 
@@ -226,17 +226,17 @@ If for instance, we want to log everything happening in the Command Bus, we'll a
 <?php
 //...your other registered classes
 
-$container['LoggerCommandBusMiddleware'] = function() use ($container) {
+$container['LoggerCommandBusMiddleware'] = function($container) {
     return new \NilPortugues\MessageBus\CommandBus\LoggerCommandBusMiddleware(
-        $container['Monolog']
+        $container->get('Monolog')
     );
 };
 
 //Update the CommandBus with the LoggerCommandBusMiddleware
-$container['CommandBus'] = function() use ($container) {
+$container['CommandBus'] = function($container) {
     return new \NilPortugues\MessageBus\CommandBus\CommandBus([
-        $container['LoggerCommandBusMiddleware'],
-        $container['CommandBusMiddleware'],
+        $container->get('LoggerCommandBusMiddleware'),
+        $container->get('CommandBusMiddleware'),
     ]);
 };
 ``` 
@@ -360,8 +360,8 @@ For instance, in a `Interop\Container` compliant Service Container, we can do th
 <?php
 //...your other registered classes
 
-$container['GetUserHandler'] = function() use ($container) {
-    return new GetUserHandler($container['UserRepository']);
+$container['GetUserHandler'] = function($container) {
+    return new GetUserHandler($container->get('UserRepository'));
 };
 ```
 
@@ -395,24 +395,24 @@ The minimum set up to get the Query Bus working is:
 <?php
 //...your other registered classes
 
-$container['QueryTranslator'] = function() use ($container) {
+$container['QueryTranslator'] = function($container) {
     return new \NilPortugues\MessageBus\QueryBus\Translator\AppendStrategy('Handler');
 };
 
-$container['QueryHandlerResolver'] = function() use ($container) {
+$container['QueryHandlerResolver'] = function($container) {
     return new \NilPortugues\MessageBus\QueryBus\Resolver\InteropContainerResolver($container);
 };
 
-$container['QueryBusMiddleware'] = function() use ($container) {
+$container['QueryBusMiddleware'] = function($container) {
     return new \NilPortugues\MessageBus\QueryBus\QueryBusMiddleware(
-        $container['QueryTranslator'],
-        $container['QueryHandlerResolver'],
+        $container->get('QueryTranslator'),
+        $container->get('QueryHandlerResolver'),
     );
 };
 
-$container['QueryBus'] = function() use ($container) {
+$container['QueryBus'] = function($container) {
     return new \NilPortugues\MessageBus\QueryBus\QueryBus([  
-        $container['QueryBusMiddleware'],
+        $container->get('QueryBusMiddleware'),
     ]);
 };
 ``` 
@@ -423,17 +423,17 @@ If for instance, we want to log everything happening in the Query Bus, we'll add
 <?php
 //...your other registered classes
 
-$container['LoggerQueryBusMiddleware'] = function() use ($container) {
+$container['LoggerQueryBusMiddleware'] = function($container) {
     return new \NilPortugues\MessageBus\QueryBus\LoggerQueryBusMiddleware(
-        $container['Monolog']
+        $container->get('Monolog')
     );
 };
 
 //Update the QueryBus with the LoggerQueryBusMiddleware
-$container['QueryBus'] = function() use ($container) {
+$container['QueryBus'] = function($container) {
     return new \NilPortugues\MessageBus\QueryBus\QueryBus([
-        $container['LoggerQueryBusMiddleware'],
-        $container['QueryBusMiddleware'],
+        $container->get('LoggerQueryBusMiddleware'),
+        $container->get('QueryBusMiddleware'),
     ]);
 };
 ``` 
@@ -633,26 +633,26 @@ For instance, in a `Interop\Container` compliant Service Container, we can do th
 <?php
 //...your other registered classes
 
-$container['UserFriendRepository'] = function() use ($container) {    
+$container['UserFriendRepository'] = function($container) {    
      return []; //your repository
 };
 
-$container['UserCreditsRepository'] = function() use ($container) {    
+$container['UserCreditsRepository'] = function($container) {    
      return []; //your repository
 };
 
-$container['EmailProvider'] = function() use ($container) {    
+$container['EmailProvider'] = function($container) {    
      return []; //your email provider
 };
 
-$container['SetupUserAccountHandler'] = function() use ($container) {    
+$container['SetupUserAccountHandler'] = function($container) {    
     return new SetupUserAccountHandler(
-        $container['UserFriendRepository'],
-        $container['UserCreditsRepository']
+        $container->get('UserFriendRepository'),
+        $container->get('UserCreditsRepository')
     );
 };
-$container['SendWelcomeEmailHandler'] = function() use ($container) {
-    return new SendWelcomeEmailHandler($container['EmailProvider']);
+$container['SendWelcomeEmailHandler'] = function($container) {
+    return new SendWelcomeEmailHandler($container->get('EmailProvider');
 };
 ```
 
@@ -684,7 +684,7 @@ The minimum set up to get the Event Bus working is:
 <?php
 //...your other registered classes
 
-$container['EventTranslator'] = function() use ($container) {
+$container['EventTranslator'] = function($container) {
     $handlers = [
        SendWelcomeEmailHandler::class,
        SetupUserAccountHandler::class,
@@ -693,20 +693,20 @@ $container['EventTranslator'] = function() use ($container) {
     return new \NilPortugues\MessageBus\EventBus\Translator\EventFullyQualifiedClassNameStrategy($handlers);
 };
 
-$container['EventHandlerResolver'] = function() use ($container) {
+$container['EventHandlerResolver'] = function($container) {
     return new \NilPortugues\MessageBus\EventBus\Resolver\InteropContainerResolver($container);
 };
 
-$container['EventBusMiddleware'] = function() use ($container) {
+$container['EventBusMiddleware'] = function($container) {
     return new \NilPortugues\MessageBus\EventBus\EventBusMiddleware(
-        $container['EventTranslator'],
-        $container['EventHandlerResolver'],
+        $container->get('EventTranslator'),
+        $container->get('EventHandlerResolver'),
     );
 };
 
-$container['EventBus'] = function() use ($container) {
+$container['EventBus'] = function($container) {
     return new \NilPortugues\MessageBus\EventBus\EventBus([  
-        $container['EventBusMiddleware'],
+        $container->get('EventBusMiddleware'),
     ]);
 };
 ``` 
@@ -717,17 +717,17 @@ If for instance, we want to log everything happening in the Event Bus, we'll add
 <?php
 //...your other registered classes
 
-$container['LoggerEventBusMiddleware'] = function() use ($container) {
+$container['LoggerEventBusMiddleware'] = function($container) {
     return new \NilPortugues\MessageBus\EventBus\LoggerEventBusMiddleware(
-        $container['Monolog']
+        $container->get('Monolog')
     );
 };
 
 //Update the EventBus with the LoggerEventBusMiddleware
-$container['EventBus'] = function() use ($container) {
+$container['EventBus'] = function($container) {
     return new \NilPortugues\MessageBus\EventBus\EventBus([
-        $container['LoggerEventBusMiddleware'],
-        $container['EventBusMiddleware'],
+        $container->get('LoggerEventBusMiddleware'),
+        $container->get('EventBusMiddleware'),
     ]);
 };
 ``` 
