@@ -10,21 +10,21 @@
 
 namespace NilPortugues\MessageBus\QueryBus\Resolver;
 
-use Interop\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use InvalidArgumentException;
 use NilPortugues\MessageBus\QueryBus\Contracts\QueryHandler;
 use NilPortugues\MessageBus\QueryBus\Contracts\QueryHandlerResolver;
 
 /**
- * Class InteropContainerResolver.
+ * Class SymfonyContainerResolver.
  */
-class InteropContainerResolver implements QueryHandlerResolver
+class SymfonyContainerResolver implements QueryHandlerResolver
 {
     /** @var ContainerInterface */
     protected $container;
 
     /**
-     * InteropContainerResolver constructor.
+     * SymfonyContainerResolver constructor.
      *
      * @param ContainerInterface $container
      */

@@ -41,7 +41,6 @@ class LoggerEventBusMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $eventBus = new LoggerEventBusMiddleware($logger);
         $eventBus->__invoke(new DummyEvent(), function ($event) {
-
         });
 
         $this->assertNotEmpty($logger->logs());

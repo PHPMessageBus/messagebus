@@ -8,23 +8,23 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\MessageBus\QueryBus\Resolver;
+namespace NilPortugues\MessageBus\EventBus\Resolver;
 
-use Interop\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use InvalidArgumentException;
-use NilPortugues\MessageBus\QueryBus\Contracts\QueryHandler;
-use NilPortugues\MessageBus\QueryBus\Contracts\QueryHandlerResolver;
+use NilPortugues\MessageBus\EventBus\Contracts\EventHandler;
+use NilPortugues\MessageBus\EventBus\Contracts\EventHandlerResolver;
 
 /**
- * Class InteropContainerResolver.
+ * Class SymfonyContainerResolver.
  */
-class InteropContainerResolver implements QueryHandlerResolver
+class SymfonyContainerResolver implements EventHandlerResolver
 {
     /** @var ContainerInterface */
     protected $container;
 
     /**
-     * InteropContainerResolver constructor.
+     * SymfonyContainerResolver constructor.
      *
      * @param ContainerInterface $container
      */
@@ -34,13 +34,13 @@ class InteropContainerResolver implements QueryHandlerResolver
     }
 
     /**
-     * Given a string to identify the Query Handler, return the instance.
+     * Given a string to identify the Event Handler, return the instance.
      *
      * @param string $handler
      *
-     * @return QueryHandler
+     * @return EventHandler
      */
-    public function instantiate(string $handler) : QueryHandler
+    public function instantiate(string $handler) : EventHandler
     {
         if (false === $this->container->has($handler)) {
             throw new InvalidArgumentException(

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace NilPortugues\MessageBus\QueryBus;
 
 use NilPortugues\MessageBus\QueryBus\Contracts\QueryResponse;
@@ -32,7 +33,7 @@ class EmptyResponse implements QueryResponse
     /**
      * Returns the *Singleton* instance of this class.
      *
-     * @return EmptyResponse The *Singleton* instance.
+     * @return EmptyResponse The *Singleton* instance
      */
     public static function create() : EmptyResponse
     {

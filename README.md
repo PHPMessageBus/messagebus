@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/PHPMessageBus/messagebus.svg?branch=master)](https://travis-ci.org/PHPMessageBus/messagebus) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PHPMessageBus/messagebus/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPMessageBus/messagebus/?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/04e1a12f-e916-4ae6-875f-5e694fb71b6a/mini.png?)](https://insight.sensiolabs.com/projects/04e1a12f-e916-4ae6-875f-5e694fb71b6a) [![Latest Stable Version](https://poser.pugx.org/nilportugues/messagebus/v/stable?)](https://packagist.org/packages/nilportugues/messagebus) [![Total Downloads](https://poser.pugx.org/nilportugues/messagebus/downloads?)](https://packagist.org/packages/nilportugues/messagebus) [![License](https://poser.pugx.org/nilportugues/messagebus/license?)](https://packagist.org/packages/nilportugues/messagebus)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.me/nilportugues)
 
-Implementation for the CommandBus, the QueryBus and the EventBus in PHP 7.
+Implementation for the CommandBus, the QueryBus and the EventBus in PHP 7 and using PSR-11.
 
 ---
 
@@ -157,7 +157,7 @@ final class RegisterUserHandler implements CommandHandler
 
 I'm assuming you're using some kind Service Container. Now it's time to register your CommandHandler. 
 
-For instance, in a `Interop\Container` compliant Service Container, we can do this as follows:
+For instance, in a `Psr\Container` compliant Service Container, we can do this as follows:
 
 ```php
 <?php
@@ -186,9 +186,9 @@ For custom strategies, you may write your own implementing the `NilPortugues\Mes
 
 Classes implementing this interface will be resolving the class for the instance required based on the output of the CommandTranslator used. 
 
-This package provides an implementation, `NilPortugues\MessageBus\CommandBus\Resolver\InteropContainerResolver`, that expects any Service Container implementing the `Interop\Container` interface.
+This package provides an implementation, `NilPortugues\MessageBus\CommandBus\Resolver\PsrContainerResolver`, that expects any Service Container implementing the `Psr\Container` interface.
 
-For custom strategies, such as Symfony Container, you may write your own implementing the `NilPortugues\MessageBus\CommandBus\Contracts\CommandHandlerResolver` interface.
+For Symfony 2 and 3 framework users up to version 3.2, you should use Symfony Container: `NilPortugues\MessageBus\CommandBus\Resolver\SymfonyContainerResolver`. For Symfony 3.3 and up use the PSR-11 ContainerResolver class.
 
 #### 1.1.5 - Registering the remaining CommandBus classes
 
@@ -203,7 +203,7 @@ $container['CommandTranslator'] = function($container) {
 };
 
 $container['CommandHandlerResolver'] = function($container) {
-    return new \NilPortugues\MessageBus\CommandBus\Resolver\InteropContainerResolver($container);
+    return new \NilPortugues\MessageBus\CommandBus\Resolver\PsrContainerResolver($container);
 };
 
 $container['CommandBusMiddleware'] = function($container) {
@@ -354,7 +354,7 @@ class UserQueryResponse implements QueryResponse
 
 I'm assuming you're using some kind Service Container. Now it's time to register your QueryHandler. 
 
-For instance, in a `Interop\Container` compliant Service Container, we can do this as follows:
+For instance, in a `Psr\Container` compliant Service Container, we can do this as follows:
 
 ```php
 <?php
@@ -382,10 +382,9 @@ For custom strategies, you may write your own implementing the `NilPortugues\Mes
 
 Classes implementing this interface will be resolving the class for the instance required based on the output of the QueryTranslator used. 
 
-This package provides an implementation, `NilPortugues\MessageBus\QueryBus\Resolver\InteropContainerResolver`, that expects any Service Container implementing the `Interop\Container` interface.
+This package provides an implementation, `NilPortugues\MessageBus\QueryBus\Resolver\PsrContainerResolver`, that expects any Service Container implementing the `Psr\Container` interface.
 
-For custom strategies, such as Symfony Container, you may write your own implementing the `NilPortugues\MessageBus\QueryBus\Contracts\QueryHandlerResolver` interface.
-
+For Symfony 2 and 3 framework users up to version 3.2, you should use Symfony Container: `NilPortugues\MessageBus\QueryBus\Resolver\SymfonyContainerResolver`. For Symfony 3.3 and up use the PSR-11 ContainerResolver class.
 
 #### 2.1.5 - Registering the remaining QueryBus classes
 
@@ -400,7 +399,7 @@ $container['QueryTranslator'] = function($container) {
 };
 
 $container['QueryHandlerResolver'] = function($container) {
-    return new \NilPortugues\MessageBus\QueryBus\Resolver\InteropContainerResolver($container);
+    return new \NilPortugues\MessageBus\QueryBus\Resolver\PsrContainerResolver($container);
 };
 
 $container['QueryBusMiddleware'] = function($container) {
@@ -627,7 +626,7 @@ final class SendWelcomeEmailHandler implements EventHandler, EventHandlerPriorit
 
 I'm assuming you're using some kind Service Container. Now it's time to register your Event Handlers.
 
-For instance, in a `Interop\Container` compliant Service Container, we can do this as follows:
+For instance, in a `Psr\Container` compliant Service Container, we can do this as follows:
 
 ```php
 <?php
@@ -671,9 +670,9 @@ Its implementation can be found at: `NilPortugues\MessageBus\EventBus\Translator
 
 Classes implementing this interface will be resolving the class for the instance required based on the output of the EventTranslator used. 
 
-This package provides an implementation, `NilPortugues\MessageBus\EventBus\Resolver\InteropContainerResolver`, that expects any Service Container implementing the `Interop\Container` interface.
+This package provides an implementation, `NilPortugues\MessageBus\EventBus\Resolver\PsrContainerResolver`, that expects any Service Container implementing the `Psr\Container` interface.
 
-For custom strategies, such as Symfony Container, you may write your own implementing the `NilPortugues\MessageBus\EventBus\Contracts\EventHandlerResolver` interface.
+For Symfony 2 and 3 framework users up to version 3.2, you should use Symfony Container: `NilPortugues\MessageBus\EventBus\Resolver\SymfonyContainerResolver`. For Symfony 3.3 and up use the PSR-11 ContainerResolver class. 
 
 #### 3.1.6 - Registering the remaining EventBus classes
 
@@ -694,7 +693,7 @@ $container['EventTranslator'] = function($container) {
 };
 
 $container['EventHandlerResolver'] = function($container) {
-    return new \NilPortugues\MessageBus\EventBus\Resolver\InteropContainerResolver($container);
+    return new \NilPortugues\MessageBus\EventBus\Resolver\PsrContainerResolver($container);
 };
 
 $container['EventBusMiddleware'] = function($container) {

@@ -38,7 +38,6 @@ class LoggerCommandBusMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $commandBus = new LoggerCommandBusMiddleware($logger);
         $commandBus->__invoke(new DummyCommand(), function ($command) {
-
         });
 
         $this->assertNotEmpty($logger->logs());

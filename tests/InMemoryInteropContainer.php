@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace NilPortugues\Tests\MessageBus;
 
 use Interop\Container\ContainerInterface;
@@ -40,12 +41,12 @@ class InMemoryInteropContainer implements ContainerInterface
     /**
      * Finds an entry of the container by its identifier and returns it.
      *
-     * @param string $id Identifier of the entry to look for.
+     * @param string $id Identifier of the entry to look for
      *
-     * @throws NotFoundException  No entry was found for this identifier.
-     * @throws ContainerException Error while retrieving the entry.
+     * @throws NotFoundException  No entry was found for this identifier
+     * @throws ContainerException Error while retrieving the entry
      *
-     * @return mixed Entry.
+     * @return mixed Entry
      */
     public function get($id)
     {
@@ -60,7 +61,7 @@ class InMemoryInteropContainer implements ContainerInterface
      * Returns true if the container can return an entry for the given identifier.
      * Returns false otherwise.
      *
-     * @param string $id Identifier of the entry to look for.
+     * @param string $id Identifier of the entry to look for
      *
      * @return bool
      */

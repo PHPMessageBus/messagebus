@@ -27,9 +27,9 @@ class InMemoryCacheItem implements CacheItemInterface
      * Constructs a new MemoryCacheItem.
      *
      * @param string $key
-     *                     The key of the cache item this object represents.
+     *                     The key of the cache item this object represents
      * @param array  $data
-     *                     An associative array of data from the Memory Pool.
+     *                     An associative array of data from the Memory Pool
      */
     public function __construct($key, array $data)
     {

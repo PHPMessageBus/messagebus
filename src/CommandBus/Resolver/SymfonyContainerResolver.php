@@ -1,30 +1,30 @@
 <?php
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
- * Date: 23/03/16
- * Time: 22:11.
+ * Date: 15/02/17
+ * Time: 11:13.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\MessageBus\QueryBus\Resolver;
+namespace NilPortugues\MessageBus\CommandBus\Resolver;
 
-use Interop\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use InvalidArgumentException;
-use NilPortugues\MessageBus\QueryBus\Contracts\QueryHandler;
-use NilPortugues\MessageBus\QueryBus\Contracts\QueryHandlerResolver;
+use NilPortugues\MessageBus\CommandBus\Contracts\CommandHandler;
+use NilPortugues\MessageBus\CommandBus\Contracts\CommandHandlerResolver;
 
 /**
- * Class InteropContainerResolver.
+ * Class SymfonyContainerResolver.
  */
-class InteropContainerResolver implements QueryHandlerResolver
+class SymfonyContainerResolver implements CommandHandlerResolver
 {
     /** @var ContainerInterface */
     protected $container;
 
     /**
-     * InteropContainerResolver constructor.
+     * SymfonyContainerResolver constructor.
      *
      * @param ContainerInterface $container
      */
@@ -34,13 +34,13 @@ class InteropContainerResolver implements QueryHandlerResolver
     }
 
     /**
-     * Given a string to identify the Query Handler, return the instance.
+     * Given a string to identify the Command Handler, return the instance.
      *
      * @param string $handler
      *
-     * @return QueryHandler
+     * @return CommandHandler
      */
-    public function instantiate(string $handler) : QueryHandler
+    public function instantiate(string $handler) : CommandHandler
     {
         if (false === $this->container->has($handler)) {
             throw new InvalidArgumentException(

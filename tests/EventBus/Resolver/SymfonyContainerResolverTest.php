@@ -11,23 +11,23 @@
 namespace NilPortugues\Tests\MessageBus\EventBus\Resolver;
 
 use InvalidArgumentException;
-use NilPortugues\MessageBus\EventBus\Resolver\InteropContainerResolver;
+use NilPortugues\MessageBus\EventBus\Resolver\SymfonyContainerResolver;
+use NilPortugues\Tests\MessageBus\InMemorySymfonyContainer;
 use NilPortugues\Tests\MessageBus\EventBus\DummyEventHandler;
-use NilPortugues\Tests\MessageBus\InMemoryInteropContainer;
 
-class InteropContainerResolverTest extends \PHPUnit_Framework_TestCase
+class SymfonyContainerResolverTest extends \PHPUnit_Framework_TestCase
 {
     public function testItCanResolve()
     {
         $handlers = [
-            'NilPortugues\Tests\MessageBus\EventBus\DummyEventHandler' => function () {
+            'NilPortugues\Tests\MessageBus\EventBus\DummyQueryHandler' => function () {
                 return new DummyEventHandler();
             },
         ];
 
-        $resolver = new InteropContainerResolver(new InMemoryInteropContainer($handlers));
+        $resolver = new SymfonyContainerResolver(new InMemorySymfonyContainer($handlers));
         $instance = $resolver->instantiate(
-            'NilPortugues\Tests\MessageBus\EventBus\DummyEventHandler'
+            'NilPortugues\Tests\MessageBus\EventBus\DummyQueryHandler'
         );
 
         $this->assertInstanceOf(DummyEventHandler::class, $instance);
@@ -36,7 +36,7 @@ class InteropContainerResolverTest extends \PHPUnit_Framework_TestCase
     public function testItThrowsExceptionIfCannotResolve()
     {
         $this->expectException(InvalidArgumentException::class);
-        $resolver = new InteropContainerResolver(new InMemoryInteropContainer([]));
+        $resolver = new SymfonyContainerResolver(new InMemorySymfonyContainer([]));
         $resolver->instantiate('Hello\World');
     }
 }
