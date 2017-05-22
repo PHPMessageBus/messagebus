@@ -42,6 +42,7 @@ class SymfonyContainerResolver implements CommandHandlerResolver
      */
     public function instantiate(string $handler) : CommandHandler
     {
+        $handler = ltrim($handler, '\\');
         if (false === $this->container->has($handler)) {
             throw new InvalidArgumentException(
                 sprintf('Handler %s could not be found. Did you register it?', $handler)
