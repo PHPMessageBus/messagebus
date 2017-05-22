@@ -42,6 +42,7 @@ class SymfonyContainerResolver implements QueryHandlerResolver
      */
     public function instantiate(string $handler) : QueryHandler
     {
+        $handler = ltrim($handler, '\\');
         if (false === $this->container->has($handler)) {
             throw new InvalidArgumentException(
                 sprintf('Handler %s could not be found. Did you register it?', $handler)
